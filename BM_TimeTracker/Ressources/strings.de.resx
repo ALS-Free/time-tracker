@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="adminSettings_invalidTime" xml:space="preserve">
+    <value>Ungültige Zeit eingegeben</value>
+  </data>
+  <data name="adminSettings_minTime" xml:space="preserve">
+    <value>Erforderliche Mindestzeit</value>
+  </data>
+  <data name="adminSettings_save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="admin_backtomanage" xml:space="preserve">
+    <value>Zurück zur Verwaltung</value>
+  </data>
+  <data name="admin_criticaldays" xml:space="preserve">
+    <value>Kritische Tage</value>
+  </data>
+  <data name="admin_date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="admin_end" xml:space="preserve">
+    <value>Ende</value>
+  </data>
+  <data name="admin_export" xml:space="preserve">
+    <value>Als Excel exportieren</value>
+  </data>
+  <data name="admin_intern" xml:space="preserve">
+    <value>Intern</value>
+  </data>
+  <data name="admin_loaddata" xml:space="preserve">
+    <value>Lade Daten</value>
+  </data>
+  <data name="admin_settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="admin_start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="admin_task" xml:space="preserve">
+    <value>Aufgabe</value>
+  </data>
+  <data name="admin_timeinminutes" xml:space="preserve">
+    <value>Zeit in Minuten</value>
+  </data>
+  <data name="admin_title" xml:space="preserve">
+    <value>TimeTracker: Adminbereich</value>
+  </data>
+  <data name="admin_usermanage" xml:space="preserve">
+    <value>Benutzerverwaltung</value>
+  </data>
+  <data name="bookit_booktime" xml:space="preserve">
+    <value>Arbeitszeit buchen</value>
+  </data>
+  <data name="bookit_calculatetime" xml:space="preserve">
+    <value>Berechnen</value>
+  </data>
+  <data name="bookit_editing" xml:space="preserve">
+    <value>In Bearbeitung</value>
+  </data>
+  <data name="bookit_entertaskname" xml:space="preserve">
+    <value>Aufgabennamen eingeben</value>
+  </data>
+  <data name="bookit_intern" xml:space="preserve">
+    <value>Intern</value>
+  </data>
+  <data name="bookit_invalidtime" xml:space="preserve">
+    <value>Ungültige Zeit angegeben</value>
+  </data>
+  <data name="bookit_savetime" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="bookit_task" xml:space="preserve">
+    <value>Aufgabe</value>
+  </data>
+  <data name="bookit_timeminutes" xml:space="preserve">
+    <value>Zeit Minuten</value>
+  </data>
+  <data name="bookit_title" xml:space="preserve">
+    <value>TimeTracker: Buchung</value>
+  </data>
+  <data name="changeuser_invalidvalue" xml:space="preserve">
+    <value>Ungültige Werte für
+Passwort oder Benutzer</value>
+  </data>
+  <data name="changeuser_newpassword" xml:space="preserve">
+    <value>Neues Passwort</value>
+  </data>
+  <data name="changeuser_oldpassword" xml:space="preserve">
+    <value>Altes Passwort</value>
+  </data>
+  <data name="changeuser_passwordmustmatch" xml:space="preserve">
+    <value>Die Passwörter müssen
+übereinstimmen</value>
+  </data>
+  <data name="changeuser_reenternewpassword" xml:space="preserve">
+    <value>Passwort erneut eingeben</value>
+  </data>
+  <data name="changeuser_save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="changeuser_title" xml:space="preserve">
+    <value>TimeTracker: Passwort ändern</value>
+  </data>
+  <data name="changeuser_wrongpassword" xml:space="preserve">
+    <value>Falsches Passwort
+eingegeben</value>
+  </data>
+  <data name="global_horribleException" xml:space="preserve">
+    <value>Etwas schreckliches ist schiefgelaufen</value>
+  </data>
+  <data name="global_time" xml:space="preserve">
+    <value>Zeit</value>
+  </data>
+  <data name="global_user" xml:space="preserve">
+    <value>Benutzer</value>
+  </data>
+  <data name="login_failed" xml:space="preserve">
+    <value>Ungültiges Passwort und/oder Benutzername</value>
+  </data>
+  <data name="login_newuser" xml:space="preserve">
+    <value>Neuer Benutzer</value>
+  </data>
+  <data name="login_password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="login_username" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="manage_admin" xml:space="preserve">
+    <value>Adminbereich</value>
+  </data>
+  <data name="manage_alreadyfinished" xml:space="preserve">
+    <value>Aufgabe ist bereits abgeschlossen</value>
+  </data>
+  <data name="manage_alreadyrunning" xml:space="preserve">
+    <value>Andere Aufgabe läuft bereits</value>
+  </data>
+  <data name="manage_bookit" xml:space="preserve">
+    <value>Abschluss/Buchung</value>
+  </data>
+  <data name="manage_changepassword" xml:space="preserve">
+    <value>Passwort ändern</value>
+  </data>
+  <data name="manage_criticaldays" xml:space="preserve">
+    <value>Kritsche Tage</value>
+  </data>
+  <data name="manage_date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="manage_delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="manage_edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="manage_inediting" xml:space="preserve">
+    <value>In Bearbeitung</value>
+  </data>
+  <data name="manage_intern" xml:space="preserve">
+    <value>Intern</value>
+  </data>
+  <data name="manage_logut" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="manage_onlyactive" xml:space="preserve">
+    <value>Nur aktive zeigen</value>
+  </data>
+  <data name="manage_pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="manage_start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="manage_startTask" xml:space="preserve">
+    <value>Starte Aufgabe</value>
+  </data>
+  <data name="manage_startTaskButton" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="manage_task" xml:space="preserve">
+    <value>Aufgabe</value>
+  </data>
+  <data name="manage_timeminutes" xml:space="preserve">
+    <value>Zeit in Minuten</value>
+  </data>
+  <data name="manage_title" xml:space="preserve">
+    <value>TimeTracker: Aufgabemanager</value>
+  </data>
+  <data name="manage_username" xml:space="preserve">
+    <value>Eingeloggt als:</value>
+  </data>
+  <data name="manange_pauseTaskButton" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="newuser_password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="newuser_passwordmustmatch" xml:space="preserve">
+    <value>Die Passwörter müssen übereinstimmen</value>
+  </data>
+  <data name="newuser_pleaseenterpassword" xml:space="preserve">
+    <value>Geben Sie ihr Passwort ein</value>
+  </data>
+  <data name="newuser_pleaseenterusername" xml:space="preserve">
+    <value>Geben Sie Ihren Benutzernamen ein</value>
+  </data>
+  <data name="newuser_reenterpassword" xml:space="preserve">
+    <value>Passwort erneut eingeben</value>
+  </data>
+  <data name="newuser_save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="newuser_title" xml:space="preserve">
+    <value>TimeTracker: Neuer Benutzer</value>
+  </data>
+  <data name="newuser_useralreadytaken" xml:space="preserve">
+    <value>Benutzername schon vergeben</value>
+  </data>
+  <data name="newuser_username" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="tray_bookit" xml:space="preserve">
+    <value>Aufgabe buchen</value>
+  </data>
+  <data name="tray_exit" xml:space="preserve">
+    <value>Beenden</value>
+  </data>
+  <data name="tray_newtask" xml:space="preserve">
+    <value>Neue Aufgabe</value>
+  </data>
+  <data name="tray_pause" xml:space="preserve">
+    <value>Aufgabe pausieren</value>
+  </data>
+  <data name="tray_start" xml:space="preserve">
+    <value>Aufgabe starten</value>
+  </data>
+  <data name="usermanage_adminCheckBox" xml:space="preserve">
+    <value>Benutzer ist Admin</value>
+  </data>
+  <data name="usermanage_cannotDeleteLastUser" xml:space="preserve">
+    <value>Der letzte Benutzer kann 
+nicht gelöscht werden</value>
+  </data>
+  <data name="usermanage_cannotDeleteSelf" xml:space="preserve">
+    <value>Sie können sich selbst nicht 
+löschen</value>
+  </data>
+  <data name="usermanage_cannotOverrideAdmin" xml:space="preserve">
+    <value>Standardadmin kann
+nicht überschrieben werden</value>
+  </data>
+  <data name="usermanage_confirmdelete" xml:space="preserve">
+    <value>Löschen bestätigen</value>
+  </data>
+  <data name="usermanage_delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="usermanage_doyouwanttodeleteuser" xml:space="preserve">
+    <value>Wollen Sie diesen Benutzer wirklich löschen?</value>
+  </data>
+  <data name="usermanage_newuser" xml:space="preserve">
+    <value>Neuen Benutzer erstellen</value>
+  </data>
+  <data name="usermanage_password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="usermanage_passwordtooshort" xml:space="preserve">
+    <value>Passwort zu kurz</value>
+  </data>
+  <data name="usermanage_save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="usermanage_savesuccess" xml:space="preserve">
+    <value>Speichern erfolgreich</value>
+  </data>
+  <data name="usermanage_title" xml:space="preserve">
+    <value>TimeTracker: Benutzerverwaltung</value>
+  </data>
+  <data name="usermanage_useralreadyexists" xml:space="preserve">
+    <value>Benutzer existiert bereits</value>
+  </data>
+  <data name="usermanage_username" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="usermanage_usernametooshort" xml:space="preserve">
+    <value>Benutzername zu kurz</value>
+  </data>
+</root>

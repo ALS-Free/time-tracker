@@ -1,0 +1,318 @@
+﻿Technical Documentation
+
+Classes
+-Event
+	-Class that represents timespan, belonging to a task.
+-Aufgabe (Task)
+	-Class that represents a task.
+	-ID: When created a task gets the id -1 because it doesn't exists in the database yet,
+	when it gets saved it gets the id from the database
+	-User: The user the task belongs to
+	-Name: Name of the task
+	-Finished: Task is finished or not
+	-Intern: Task is an internal Task or not
+
+	Methods:
+		-CalcTimeFromEvents: Calculates the total timespan in minutes of all events belonging to this task
+		-Start/Stop: Starts or stops the task
+		-SaveToDataBase: Saves the task to the database, if the task id is -1 the task gets created and the id 
+		of the task is set to the id coming from the database. If the task gets onöy updated and is not finished
+		the time of the task is not changed (It gets calculated from the timespan of the events). If the task is finished,
+		the time is set in the database and will be changed on update.
+
+	static Methods:
+		-CalcTimeFromTaskList: Gets the timespan in minutes for a list of Tasks
+
+-Settings:
+	-Class that represents the global settings of the TimeTracker application
+	-There is only one instance of the settings class on runtime
+	-MinTime: minum time in minutes a user is required to log each day
+
+-Hash
+	-Util class to hash a string
+
+-User:
+	-ID: ID of the user. Not set when user is first created.
+	-Name: Username of the User
+	-Password: Password of the User
+	-Admin: Bool value if the user is an admin or not
+
+	Methods:
+		-VerfiyUser: A user with a password and username gets verified against the database. If
+		the verfication is successfull, the method returns true and the user gets his id and the
+		admin value from the database.
+		-ExistsInDataBase: Checks if the user exists in the database. Returns true if he does.
+		-CreateUserInDataBaseGetID/CreateAdminInDataBaseGetID: Creates the user/admin in database
+		and loads it's data
+		-UpdatePasswordInDataBase: Updates the password in the database with a new one. The passwordHash
+		from the old password gets replaced by the hash from the new one.
+		-UpdateAdminPasswordInDataBase: Updates the password and the admin value in the database
+		-DeleteInDataBase: Deletes the user in the database
+		-CreateUserInDataBase: Creates the specified user/admin in the database
+		-GetTasksByStartEnd: Gets a list of tasks between the start and end date
+		-GetTasksByStartEndActive: Gets a list of task between start and end date that are also not
+		finished
+		-StopCurrentTask: Stops the current running task of this user. If there is no task, it does
+		nothing
+		-GetActiveTaskID: Gets the TaskId of the currently active task. Returns null if there is not an
+		active task
+		-GetActiveTask: Gets the Task-Object of the currently active task. Return null if there is not 
+		an active task
+		-GetLastTask: Gets the last task the user has touched. Returns null if there are no task for this
+		user
+		-GetCritical: Gets a list of critItems where the user hasn't logged enough time.
+
+	static Methods:
+		-GetUserAnzahl: Returns the number of users in the database
+		-UserDontBreaksCritTime: Returns true if the specified user has not logged enough time on the specified date
+		-CheckStandardAdmin: Checks if there are no users in the database. If thats true it creates
+		an admin-User with the username: admin and password: admin. Should only be executed on first start
+		of application and then changed ASAP.
+		-GetAllUsersFromDataBase: Returns all users from the database
+		-GetUserByID: Gets the user with the specied id, throws an exception if there is no user with this id.
+
+-CritItem:
+	-Class that represents a date on which a user has logged not enough time.
+	-User: The User this item belongs to
+	-Date: Date on which the user this item belongs to has not logged enough time
+	-Time: Time the user which this item belongs to has logged
+
+	Methods:
+		-GetAllFromDataBase: Gets all critItems, from all Users from the database
+
+-Util
+	-Class that contains various helper Methods
+
+	Methods:
+		static:
+		-ShowError: Shows the error in a message box, all errors get displayed through this method
+		-SetConfig: Changes the value for the specified key in the configuration File
+		-GetConfig: Load the value for the specified key from the configuration File
+		-Exit: Exits the program
+		-GetGreen: Gets the custom green value 
+		-GetRed: Gets the custom red value
+
+
+Forms:
+-Login:
+	-Form Used to login to the program
+
+	Methods:
+		-CheckUsers: Checks if there are no users in the database. If this is true it creates the standard admin (admin/admin).
+		-GetLastEnteredUserNameFromConfig: Gets the last used username from the configuration File.
+		-SetLastEnteredUserNameFromConfig: Sets the last used username from the configuration File.
+		-ShowVerwaltung: Loads the "TaskManagement" Form
+		-SetLocalization: Loads text for spans, button, etc dependig on the culture of the OS
+
+	Event Methods:
+		-btnLoginClick: creates a user object from the entered values in username and password. Then it verifies this user
+		agains the database. If that is succesfull the user gets logged in to the "TaskManagement" Form
+		-lnkNewUser_LinkClicked: Loads a Form to create a new user
+		-fLogin_FormClosing: Gets excuted when the user closes the form. The method then closes the program
+
+
+
+-NewUser
+	-Form used to create new users
+	-User can create a user by himself, no admin required
+
+	Methods:
+		-ResetNotificationLabels: Resets the labels used to display error messages
+		-CheckInputs: Checks the input field for any wrong input values
+		-SetLocalization: Loads text for spans, button, etc dependig on the culture of the OS
+
+	Event Methods
+		-btnSave_Click: Gets executed when the user clicks "save". Creates a new user after the inputs got checked
+
+
+
+-TaskManagement
+	-Main Form Used to start, stop and book tasks.
+	-CurrentUser: the CurrentUser logged in
+	-DtpDay: The Date for which the tasks of the logged in user are displayed
+
+	Methods:
+		-ShowTaskAlreadyFinishedError: Shows an Errormessage that the specified task is already finished
+		-FillDataGrid: Loads all tasks into the table
+			-Checkbox "only Active" checked: Only active tasks are getting loaded into the table
+			-Checkbox "only Active" not checked: All tasks are getting loaded into the table
+		-ClearDataGrid: Deletes all row from the table. A clear table remains
+		-ClearBackgrounds: Resets the background color of all tasks in the table and the tray menu
+		-MarkActive: Marks the active task with a specied background color (default: green)
+		-MarkFinished: Marks all finished tasks with a specified background color (default: red)
+		-MarkTasks: Clears the backgrounds, mark the active task and all finished tasks
+		-ResetNotifications: Turns the Error Label back to invisible
+		-ShowAdminForm: Loads the "Admin"-Form
+		-LoadUserLoggedInAs: Loads the username to the "Logged in as" label
+		-ShowUserDatenForm: Loads the Form, for a user to change his password
+		-ResizeDataGrid: Resizes the table. When form is minimized, loads the tray menu
+		-LoadCrit: Loads all critItems for the current logged in user
+		-ClearCrit: Clears the list to display the critItems
+		-UnselectDatagrid: Unselects the table
+		-ShowBuchungForm: Loads the "Booking"-Form. When the taks is finished the user can edit the time for
+		the task. If the task is active he can't. The Form gets called with a parameter which represents if the 
+		current task will be finished on saving
+		-LoadTray: Gets all active tasks and loads them into the context menu
+		-LoadClock: Loads a clock icon for the tray. If there is a task runnging the icon will be blue. If not
+		the icon will be red
+		-AddTaskCreateToTray: Adds the entry to create a new task to the context menu in the tray
+		-AddTaskToTray: Adds a task object to the context menu in the tray
+		-ClearTray: Deletes all entrys from the context menu in the tray
+		-ShowLoginForm: Loads the Login Form
+		-SetLocalization: Loads text for spans, button, etc dependig on the culture of the OS
+		-AddTaskToDataGrid: Adds a task to the table
+		-GetTaskFromRow: Gets the task object in the speciefied row of the table
+
+	Event Methods:
+		-TaskManagement_FormClosing: Gets executed when the user closes the form. This method then closes the program.
+		-exitToolStripMenuItem_Click: Gets executed when the user clicks exit in the TrayMenu. This method then closes 
+		the program
+		-btnStart_Click: Gets exectud when the use clicks the start button. If the user has selected a task is the table
+		the selected task gets started. If the user has not selected a task, the current task gets stopped, a new task gets
+		created and started.
+		-btnStop_Click: Gets executed when the user clicks the "BookIt"-Button. The method loads the "Booking"-Form and specifies
+		that the current task will be finished if it gets saved over the "Booking"-Form
+		-btnPause_Click: Gets executed when the user clicks the "Pause"-Button. The method stop the selected task from running
+		-dtgV1_CellContentClick: Gets executed when the user clicks into the table
+			-Clicks on cell without a button: Nothing happens
+			-Clicks on cell with "Start"-Button: The current running task gets stopped and the task on the same line gets started
+			-Clicks on cell with "Pause"-Button (Only on the line with the current running task): Stops the running task
+			-Clicks on cell with "Delete"-Button: Deletes the task
+			-Clicks on cell with "Edit"-Button: Loads the "Booking"-Form to edit the properties of the task. If it's an active task
+			you can't change the time saved for this task. If it's a finished one, you can.
+		-timer_Tick: Gets executed when user has the "TaskManagement"-From loaded. This methods refreshes the time value for the
+		current running task
+		-btnAdmin_Click: Gets executed when the user clicks on the "Admin"-Button. Loads the "Admin"-Form
+		-btnUser_Click: Gets executed when the user clicks on the "Change Password"-Button
+		-cbxAktive_CheckedChanged: Gets executed when the user clicks on the checkbox "only active". Reloads the table with all
+		or only active tasks
+		-Verwaltung_Resize: Gets executed when user resizes the form. Resizes the table
+		-lbxKritisch_MouseDoubleClick: Gets executed when a user double clicks on an entry on the list used to display all critItems
+		-dtpDay_ValueChanged: Gets executed when the values for the selected day change. Reloads the table
+		-dtgV1_MouseDown: Gets executed when the user clicks anywhere in the table space that is not belonging to the table
+		(borders, empty space of the table). Unselectd the table
+		-pnlBack_Click: Gets executed when the user clicks outside of the table. Unselects anything the table
+		-Verwaltung_Click: Gets executed when the user clicks outside of the table. Unselects anything the table
+		-fVerwaltung_KeyDown: Gets executed when the user presses a key. Responsible for the keyboard shortcuts.
+			-CTRL+S: Starts the current selected task, or stops the current task and starts a new one
+			-CTRL+P: Pauses the currently running task
+			-CTRL+B: Stops the selected task a show the "Booking"-Form for it. When the task gets saved it's finished
+		-notifyIcon_MouseClick: Gets executed when the user clicks on the tray icon.
+			-Right Click: Open Context Menu
+			-Left Click: Return to normal view and shows the table
+		-ts_TaskCreate_Click: Gets executed when user clicks on "Create new Task" in context menu "start task" of tray.
+		Creates a new Task
+		-ts_TaskStart_Click: Gets executed when user clicks on task inside of context menu "start task" of tray. Starts
+		the selected task
+		-ts_TaskBooking_Click: Gets executed when user clicks on task inside on context menu "book task" of tray. Loads the
+		"Booking"-Form for the selected task. When the task is saved it is finished
+		-taskPauseToolStripMenuItem_Click: Gets executed when the user clicks on the running taks in the context menu "start task"
+		of the tray. Pauses the current running task.
+		-btnLogout_Click: Gets executed when the user clicks on the "logout"-Button. Performs a logout for the current user. Then loads 
+		the login-Form
+
+-Booking
+	-Form to edit, and save a single task
+
+	Methods:
+		-ShowTaskManagement: Loads the "TaskManagement"-Form
+		-LoadTask: Loads a specific Task. Display the data of this task
+		-LoadFinishedOrEdit: Sets the UI if the Task is about to be finished or just edited. When the users edits a still active task 
+		the user cannot edit the time of the task. If the task is about to be finished or finished the user can set the specific
+		time in minutes it took him to finish this task
+		-RoundIt: Rounds up the time in minutes. In 15 minute-parts
+		-ResetNotificationLabels: Reset all Label used to display Error Messages
+		-CheckInputs: Checks the input field for wrong input (i.e. If the users entered a name for the task, The user entered a time for
+		the task)
+		-SetLocalization: Loads text for spans, button, etc dependig on the culture of the OS
+
+	Event Metods:
+		-Booking_FormClosing: Gets executed when the user closes the form. The "TaskManagement"-Form gets loaded
+		-btnSave_Click: Gets executed when the user clicks "save". Saves the current task
+		-btnCalculate_Click: Gets executed when the user clicks "calculate". Calculates the time for this task by the number of events
+		belonging to that task
+		 
+-ChangePassword
+	-Form for a user to change his password
+
+	Methods
+		-ResetNotificationLabels: Resets the Labels used to display error messages
+		-CheckInputs: Checks the input fields for any wrong input (i.e. user entered a wrong password as his old password)
+		-SetLocalization: Loads text for spans, button, etc dependig on the culture of the OS
+
+	Event Methods
+		-btnSave_Click: Gets executed when the user clicks "save". The old password get overwritten by the new password after all inputs
+		got checked
+		-fChangePassword_FormClosing: Gets executed when the user closes the form. The "TaskManagement"-Form get loaded
+
+-Admin
+	-Form only admins have acces to
+	-Admins can get data from other users about the time they logged to specific tasks and dates
+
+	Methods:
+		-ShowAdminSettingsForm: Loads the "AdminSettings"-Form
+		-AddTaskToDataGrid: Adds a task object to the table.
+		-MarkActiveTaskInDataGrid: Sets the background color of the active task to green
+		-FillDataGrid: Gets all task of the selected user for the selected timespan and loads them into the table
+		-ClearDataGrid: Deletes all rows from the table
+		-ClearCritList: Deletes all items from the list where the critical items of all user were displayed
+		-ToExcel: Exports the table to an excel file
+		-ReleaseCOMObject: Releases a COM Object so it can be picked up by the garbage collector
+		-LoadCritItemListToList: Loads all crititems and adds them to list to be displayed to the user
+		-ResizeDataGrid: Resizes the datagrid (i.e. when the form measurements change)
+		SetLocalization: Loads text for spans, button, etc dependig on the culture of the OS
+
+	Event Methods:
+		-btnSettings_Click: Gets executed when the user clicks on "settings". Loads the "AdminSettings"-Form
+		-Admin_FormClosing: Gets executed when the user closes the form. Executes the program
+		-btnLoadUserData_Click: Gets executed when the user clicks on
+		-btnLoadAdminChangeUser_Click: Gets executed when the user clicks on "userdata". Loads the "AdminChangeUser"-Form
+		-btnSaveExcel_Click: Gets executed when the user clicks on "save to excel". Saves the table to an excel file
+		-btnTaskManagement_Click: Gets executed when the user clicks on "taskmanagement". Loads the "TaskManagement"-Form
+		-lbxCrit_MouseDoubleClick: Gets executed when the user double clicks on an entry in the list with the critItems. Jumps 
+		to the selected date adn user specified in the critItem.
+		-Admin_Resize: Gets executed when the form gets resized. The table gets also resized
+
+-AdminChangeUser
+	-Form the admin can use to create new users or to overwrite passwords of users or give admin rights to users
+
+	Methods
+		-ResetNotificationLabels: Resets the labels used to display error messages to the user
+		-ResetForm: Resets the Form to the starting point, username and password fields get cleared.
+		-ShowAdminForm: Loads the "Admin"-Form
+		-LoadUser: Loads the data of a user to the dropdownlist. Also an item is added to create new users
+		-AddNewUserDropDownItem: Placeholderitem for creating new users is added to the user dropdownlist
+		-AddUserListToDropDown: Gets all users and adds them to the dropdownlist, then selects the user with the 
+		specified userid
+		-CheckInputs: Checks the input fields for any wrong input (i.e. user gets a invalid new password)
+		-SetErrorLabel: Sets the Label used to display an error message to the specified text
+		-UserToCreate: in the dropdownlist there are only user items. The first item is a placeholderitem used to create new users.
+		this placeholderitem has the userid 0. this method returns true is the placeholderitem is selected
+		-CreateNewUser: Creates a new user with username and password in the database
+		-OverwriteUser: Overwrites a users with a new password and/or admin value
+		-IsDeletingSelf: Checks if a users is trying to delete itself
+		-IsLastUser: Checks if there is only one user left
+		-GetCurrentUser: Gets the currently selected user
+		-SetLocalization: Loads text for spans, button, etc dependig on the culture of the OS
+
+	Event Methods
+		-AdminChangeUser_FormClosing: Gets executed when the user closes the form. The "Admin"-Form gets loaded
+		-btnSave_Click: Gets executed when the user clicks "save". Saves the user
+		-btnDelete_Click: Gets executed when the user clicks "delete". Deletes the user
+		-cboxUser_SelectedIndexChanged: Gets executed when the user changes the selected user. The userdata of the newly selected
+		user gets displayed
+
+-AdminSettings
+	-Form to set the minium required time a user has to log.
+
+		Methods:
+			-ShowMinTime: Display the current setting for the minimum time to the user
+			-CheckInputs: Checks the input fields for any wrong input
+			-ResetNotificationLabels: Resets the labels used to display error messages to the user
+			-SetLocalization: Loads text for spans, button, etc dependig on the culture of the OS
+
+		Event Methods
+			-fAdminSettings_FormClosing: Gets executed when the user closes the form. The "Admin"-Form get loaded
+			-btnSave_Click: Saves the current settings
+
+
