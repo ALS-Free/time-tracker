@@ -17,15 +17,17 @@ create a database user to connect time:tracker to this database. This data will 
 Download the .msi package from http://gettimetracker.de and execute it. When you will be aksed for your database information from step one enter it. Finished.
 
 ###2b Manual
+Clone this repository <a>https://github.com/ALS-Free/time-tracker.git</a>. Load the project in your visual studio or IDE of your choice.
 
-Clone this repository <a>https://github.com/ALS-Free/time-tracker.git</a>. Load the project in your visual studio or IDE of your choice. Navigate to the app.config file. Enter the database information under the section "connectionStrings". For example.
+Copy the contents of the install.txt file located under /sqlscripts. Execute them in your created database to create the tables and the stored procedures you need for time:tracker
+
+Navigate to the app.config file. Enter the database information under the section "connectionStrings". For example.
 
 ```xml
  <connectionStrings>
     <add name="SQLConnection" connectionString="Data Source=.\SQLEXPRESS;Initial Catalog=*YourDatabase*;User ID=*YourDatabaseUserId*;Password=*YourDatabaseUserPassword*" />
   </connectionStrings>
 ```
-
 Compile it. Deploy it.
 
 
