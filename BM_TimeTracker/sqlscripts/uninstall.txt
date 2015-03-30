@@ -1,0 +1,205 @@
+/****** Object:  ForeignKey [FK_Aufgabe_Benutzer]    Script Date: 11/13/2014 09:39:25 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Aufgabe_Benutzer]') AND parent_object_id = OBJECT_ID(N'[dbo].[Aufgabe]'))
+ALTER TABLE [dbo].[Aufgabe] DROP CONSTRAINT [FK_Aufgabe_Benutzer]
+GO
+/****** Object:  ForeignKey [FK_Event_Aufgabe]    Script Date: 11/13/2014 09:39:25 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Event_Aufgabe]') AND parent_object_id = OBJECT_ID(N'[dbo].[Event]'))
+ALTER TABLE [dbo].[Event] DROP CONSTRAINT [FK_Event_Aufgabe]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_DeleteEvents_byUserID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_DeleteEvents_byUserID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_DeleteEvents_byUserID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabe_last]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabe_last]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAufgabe_last]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabeID_ByUserIDEnddatumNULL]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabeID_ByUserIDEnddatumNULL]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAufgabeID_ByUserIDEnddatumNULL]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabeID_ByUserIDZeitNULLEndatumNULL]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabeID_ByUserIDZeitNULLEndatumNULL]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAufgabeID_ByUserIDZeitNULLEndatumNULL]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetRunningAufgabe_byUserID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetRunningAufgabe_byUserID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetRunningAufgabe_byUserID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetStartEnddatum_byAufgabeID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetStartEnddatum_byAufgabeID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetStartEnddatum_byAufgabeID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertEvent]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertEvent]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_InsertEvent]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetEvent_byUserIDEnddatumNULL]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetEvent_byUserIDEnddatumNULL]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetEvent_byUserIDEnddatumNULL]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetEventEnddatum_ByAufgabeID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetEventEnddatum_ByAufgabeID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetEventEnddatum_ByAufgabeID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetEventEnddatum_ByUserID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetEventEnddatum_ByUserID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetEventEnddatum_ByUserID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetEvent_byAufgabeIDEnddatumNULL]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetEvent_byAufgabeIDEnddatumNULL]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetEvent_byAufgabeIDEnddatumNULL]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetKritisch_All]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetKritisch_All]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetKritisch_All]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetKritisch_byUserID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetKritisch_byUserID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetKritisch_byUserID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetAufgabe_byID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetAufgabe_byID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetAufgabe_byID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetAufgabeGeloescht_ByAufgabeID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetAufgabeGeloescht_ByAufgabeID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetAufgabeGeloescht_ByAufgabeID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetAufgabeOhneAbschluss_byID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetAufgabeOhneAbschluss_byID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetAufgabeOhneAbschluss_byID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetZeit_byUserID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetZeit_byUserID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetZeit_byUserID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertAufgabeAbgeschloessenGetID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertAufgabeAbgeschloessenGetID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_InsertAufgabeAbgeschloessenGetID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertAufgabeGetID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertAufgabeGetID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_InsertAufgabeGetID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAugabe_ByUserIDStartEnddatum]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAugabe_ByUserIDStartEnddatum]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAugabe_ByUserIDStartEnddatum]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAugabe_ByUserIDStartEnddatumAktiv]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAugabe_ByUserIDStartEnddatumAktiv]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAugabe_ByUserIDStartEnddatumAktiv]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAbgeschlossen_byAufgabeID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAbgeschlossen_byAufgabeID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAbgeschlossen_byAufgabeID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAbgeschlossen_byAufgabeIDAbgeschlossen]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAbgeschlossen_byAufgabeIDAbgeschlossen]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAbgeschlossen_byAufgabeIDAbgeschlossen]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabe_byID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabe_byID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAufgabe_byID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabe_byUserIDStartEnddatum_admin]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabe_byUserIDStartEnddatum_admin]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetAufgabe_byUserIDStartEnddatum_admin]
+GO
+/****** Object:  Table [dbo].[Event]    Script Date: 11/13/2014 09:39:25 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Event_Aufgabe]') AND parent_object_id = OBJECT_ID(N'[dbo].[Event]'))
+ALTER TABLE [dbo].[Event] DROP CONSTRAINT [FK_Event_Aufgabe]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Event]') AND type in (N'U'))
+DROP TABLE [dbo].[Event]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_DeleteAufgaben_byUserID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_DeleteAufgaben_byUserID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_DeleteAufgaben_byUserID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_DeleteBenutzer_ByID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_DeleteBenutzer_ByID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_DeleteBenutzer_ByID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetEinstellungenMindestZeit]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetEinstellungenMindestZeit]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetEinstellungenMindestZeit]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertBenutzer]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertBenutzer]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_InsertBenutzer]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertBenutzerGetID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertBenutzerGetID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_InsertBenutzerGetID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetEinstellungenMindestZeit]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetEinstellungenMindestZeit]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetEinstellungenMindestZeit]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUser_All]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUser_All]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetUser_All]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUser_ByUserID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUser_ByUserID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetUser_ByUserID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUser_ByUserIDPassword]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUser_ByUserIDPassword]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetUser_ByUserIDPassword]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUser_ByUsername]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUser_ByUsername]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetUser_ByUsername]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUserAnzahl]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUserAnzahl]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetUserAnzahl]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUserGuid_byUserID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUserGuid_byUserID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetUserGuid_byUserID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUserID_byUsername]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUserID_byUsername]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_GetUserID_byUsername]
+GO
+/****** Object:  Table [dbo].[Aufgabe]    Script Date: 11/13/2014 09:39:25 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Aufgabe_Benutzer]') AND parent_object_id = OBJECT_ID(N'[dbo].[Aufgabe]'))
+ALTER TABLE [dbo].[Aufgabe] DROP CONSTRAINT [FK_Aufgabe_Benutzer]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Aufgabe_geloescht]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Aufgabe] DROP CONSTRAINT [DF_Aufgabe_geloescht]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Aufgabe_abgeschlossen]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Aufgabe] DROP CONSTRAINT [DF_Aufgabe_abgeschlossen]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Aufgabe]') AND type in (N'U'))
+DROP TABLE [dbo].[Aufgabe]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetUserPassword_byID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetUserPassword_byID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetUserPassword_byID]
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetUserPasswordAdmin_byID]    Script Date: 11/13/2014 09:39:26 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetUserPasswordAdmin_byID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TT_SetUserPasswordAdmin_byID]
+GO
+/****** Object:  Table [dbo].[Benutzer]    Script Date: 11/13/2014 09:39:25 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Benutzer_admin]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Benutzer] DROP CONSTRAINT [DF_Benutzer_admin]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Benutzer]') AND type in (N'U'))
+DROP TABLE [dbo].[Benutzer]
+GO
+/****** Object:  Table [dbo].[Einstellungen]    Script Date: 11/13/2014 09:39:25 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Einstellungen]') AND type in (N'U'))
+DROP TABLE [dbo].[Einstellungen]
+GO

@@ -1,0 +1,1288 @@
+/****** Object:  Table [dbo].[Einstellungen]    Script Date: 11/12/2014 12:12:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Einstellungen]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Einstellungen](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[MindestZeit] [int] NOT NULL,
+ CONSTRAINT [PK_Einstellungen] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Benutzer]    Script Date: 11/12/2014 12:12:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Benutzer]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Benutzer](
+	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [varchar](500) NOT NULL,
+	[password] [varchar](500) NOT NULL,
+	[guid] [uniqueidentifier] NOT NULL,
+	[admin] [bit] NOT NULL,
+ CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetUserPasswordAdmin_byID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetUserPasswordAdmin_byID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_SetUserPasswordAdmin_byID]
+	-- Add the parameters for the stored procedure here
+	@UserID int,
+	@password varchar(500),
+	@admin	bit
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE Benutzer SET password = @password, admin = @admin WHERE UserID = @UserID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetUserPassword_byID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetUserPassword_byID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_SetUserPassword_byID]
+	-- Add the parameters for the stored procedure here
+	@UserID int,
+	@password varchar(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE Benutzer SET password = @password WHERE UserID = @UserID
+END
+' 
+END
+GO
+/****** Object:  Table [dbo].[Aufgabe]    Script Date: 11/12/2014 12:12:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Aufgabe]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Aufgabe](
+	[AufgabeID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[AufgabeName] [varchar](500) NOT NULL,
+	[Intern] [bit] NOT NULL,
+	[Zeit] [int] NULL,
+	[geloescht] [bit] NOT NULL,
+	[Datum] [datetime] NULL,
+	[abgeschlossen] [bit] NOT NULL,
+ CONSTRAINT [PK_Aufgabe] PRIMARY KEY CLUSTERED 
+(
+	[AufgabeID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUserID_byUsername]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUserID_byUsername]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetUserID_byUsername]
+	-- Add the parameters for the stored procedure here
+	@Username varchar(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT UserID FROM Benutzer WHERE Username = @Username
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUserGuid_byUserID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUserGuid_byUserID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetUserGuid_byUserID]
+	-- Add the parameters for the stored procedure here
+	@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT guid FROM Benutzer WHERE UserID = @UserID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUserAnzahl]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUserAnzahl]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer	
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetUserAnzahl]
+	-- Add the parameters for the stored procedure here
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT COUNT(b.UserID) FROM Benutzer b
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUser_ByUsername]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUser_ByUsername]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer	
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetUser_ByUsername]
+	-- Add the parameters for the stored procedure here
+@username varchar(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT UserID,password,guid,admin,username  FROM Benutzer WHERE username = @username
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUser_ByUserIDPassword]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUser_ByUserIDPassword]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer	
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_GetUser_ByUserIDPassword]
+	-- Add the parameters for the stored procedure here
+	@UserID int,
+	@password varchar(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT UserID FROM Benutzer WHERE UserID = @UserID AND password = @password
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUser_ByUserID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUser_ByUserID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer	
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_GetUser_ByUserID]
+	-- Add the parameters for the stored procedure here
+	@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT username,password,guid FROM Benutzer WHERE UserID = @UserID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetUser_All]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetUser_All]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetUser_All]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT UserID,Username,admin FROM Benutzer
+	
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetEinstellungenMindestZeit]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetEinstellungenMindestZeit]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_SetEinstellungenMindestZeit]
+@Zeit int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	
+	if(Select COUNT(*) FROM Einstellungen) = 0
+	BEGIN
+	  INSERT INTO Einstellungen(MindestZeit) VALUES (@Zeit)
+	END 
+	ELSE
+	BEGIN
+		  Update Einstellungen Set MindestZeit = @Zeit
+	END
+
+  
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertBenutzerGetID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertBenutzerGetID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer	
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_InsertBenutzerGetID]
+	-- Add the parameters for the stored procedure here
+	@username varchar(500),
+	@password varchar(500),
+	@guid varchar(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Benutzer(Username,password,guid,admin) VALUES (@username,@password,@guid,1);
+	
+	SELECT SCOPE_IDENTITY();
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertBenutzer]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertBenutzer]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer	
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_InsertBenutzer]
+	-- Add the parameters for the stored procedure here
+	@username varchar(500),
+	@password varchar(500),
+	@guid varchar(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Benutzer(Username,password,guid,admin) VALUES (@username,@password,@guid,1);
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetEinstellungenMindestZeit]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetEinstellungenMindestZeit]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetEinstellungenMindestZeit]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	if(SELECT COUNT(*) FROM Einstellungen) = 0
+	BEGIN
+	SELECT 360
+	END
+	ELSE
+	BEGIN
+	    SELECT TOP 1 MindestZeit FROM Einstellungen
+	END
+
+
+
+
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_DeleteBenutzer_ByID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_DeleteBenutzer_ByID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_DeleteBenutzer_ByID]
+	-- Add the parameters for the stored procedure here
+	@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM Benutzer WHERE UserID = @UserID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_DeleteAufgaben_byUserID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_DeleteAufgaben_byUserID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_DeleteAufgaben_byUserID]
+	-- Add the parameters for the stored procedure here
+	@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM Aufgabe WHERE UserID = @UserID
+END
+' 
+END
+GO
+/****** Object:  Table [dbo].[Event]    Script Date: 11/12/2014 12:12:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Event]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Event](
+	[EventID] [int] IDENTITY(1,1) NOT NULL,
+	[AufgabeID] [int] NOT NULL,
+	[StartDatum] [datetime] NOT NULL,
+	[Enddatum] [datetime] NULL,
+ CONSTRAINT [PK_Event] PRIMARY KEY CLUSTERED 
+(
+	[EventID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabe_byUserIDStartEnddatum_admin]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabe_byUserIDStartEnddatum_admin]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_GetAufgabe_byUserIDStartEnddatum_admin]
+	-- Add the parameters for the stored procedure here
+	@UserID int,
+	@Startdatum datetime,
+	@Enddatum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT AufgabeID,AufgabeName,Intern,Zeit,Datum FROM Aufgabe WHERE @Startdatum <= Datum AND Datum <= @Enddatum AND geloescht = 0 AND UserID = @UserID ORDER BY Datum desc
+
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabe_byID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabe_byID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetAufgabe_byID]
+	-- Add the parameters for the stored procedure here
+	@AufgabeID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	SELECT * FROM Aufgabe WHERE AufgabeID = @AufgabeID
+
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAbgeschlossen_byAufgabeIDAbgeschlossen]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAbgeschlossen_byAufgabeIDAbgeschlossen]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_GetAbgeschlossen_byAufgabeIDAbgeschlossen]
+	-- Add the parameters for the stored procedure here
+@AufgabeID int	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+   
+	SELECT abgeschlossen FROM Aufgabe WHERE AufgabeID = @AufgabeID AND abgeschlossen = 1
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAbgeschlossen_byAufgabeID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAbgeschlossen_byAufgabeID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetAbgeschlossen_byAufgabeID]
+	-- Add the parameters for the stored procedure here
+@AufgabeID int	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+   
+	SELECT abgeschlossen FROM Aufgabe WHERE AufgabeID = @AufgabeID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAugabe_ByUserIDStartEnddatumAktiv]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAugabe_ByUserIDStartEnddatumAktiv]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetAugabe_ByUserIDStartEnddatumAktiv]
+	-- Add the parameters for the stored procedure here
+	@UserID int,
+	@Startdatum datetime,
+	@Enddatum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM Aufgabe 
+	WHERE UserID = @UserID AND
+	 geloescht = 0 AND abgeschlossen = 0 AND 
+	 ((@Startdatum <= Datum AND Datum <= @Enddatum) OR (Datum IS NULL)) ORDER BY Datum desc
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAugabe_ByUserIDStartEnddatum]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAugabe_ByUserIDStartEnddatum]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetAugabe_ByUserIDStartEnddatum]
+	-- Add the parameters for the stored procedure here
+	@UserID int,
+	@Startdatum datetime,
+	@Enddatum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT * FROM Aufgabe WHERE UserID = @UserID AND geloescht = 0 AND ((@Startdatum <= Datum AND Datum <= @Enddatum) OR (Datum IS NULL)) ORDER BY Datum desc
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertAufgabeGetID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertAufgabeGetID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_InsertAufgabeGetID]
+	-- Add the parameters for the stored procedure here
+	@UserID int,
+	@AufgabeName varchar(500),
+	@Intern bit
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Aufgabe(UserID,AufgabeName,Intern)
+    VALUES(@UserID,@AufgabeName,@Intern); 
+    
+    SELECT SCOPE_IDENTITY()
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertAufgabeAbgeschloessenGetID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertAufgabeAbgeschloessenGetID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer	
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_InsertAufgabeAbgeschloessenGetID]
+	-- Add the parameters for the stored procedure here
+@UserID int,
+@AufgabeName varchar(500),
+@Intern bit
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Aufgabe(UserID,AufgabeName,Intern,abgeschlossen)
+	VALUES(@UserID,@AufgabeName,@Intern,1); SELECT SCOPE_IDENTITY()
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetZeit_byUserID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetZeit_byUserID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetZeit_byUserID]
+	-- Add the parameters for the stored procedure here
+	@UserID int,
+	@Startdatum datetime,
+	@Enddatum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT AufgabeID,Zeit FROM Aufgabe WHERE UserID = @UserID AND @Startdatum <= datum AND datum < @Enddatum AND geloescht = 0
+
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetAufgabeOhneAbschluss_byID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetAufgabeOhneAbschluss_byID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_SetAufgabeOhneAbschluss_byID]
+	-- Add the parameters for the stored procedure here
+
+	@AufgabeID int,
+	@AufgabeName varchar(500),
+	@Intern bit,
+	@Zeit int,
+	@Datum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+
+	UPDATE Aufgabe SET AufgabeName = @AufgabeName, Intern = @Intern, Zeit = @Zeit, Datum = @Datum WHERE AufgabeID = @AufgabeID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetAufgabeGeloescht_ByAufgabeID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetAufgabeGeloescht_ByAufgabeID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_SetAufgabeGeloescht_ByAufgabeID]
+	-- Add the parameters for the stored procedure here
+	@AufgabeID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE Aufgabe SET geloescht = 1 WHERE AufgabeID = @AufgabeID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetAufgabe_byID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetAufgabe_byID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_SetAufgabe_byID]
+	-- Add the parameters for the stored procedure here
+	@AufgabeID int,
+	@Aufgabename varchar(500),
+	@Intern bit,
+	@Zeit int,
+	@Abschluss bit,
+	@Datum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+
+    UPDATE Aufgabe SET AufgabeName = @AufgabeName, Intern = @Intern, Zeit = @Zeit, Datum = @Datum, abgeschlossen = @Abschluss WHERE AufgabeID = @AufgabeID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetKritisch_byUserID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetKritisch_byUserID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetKritisch_byUserID]
+	-- Add the parameters for the stored procedure here
+	@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   SELECT DISTINCT
+   CONVERT(varchar(10), [Datum], 103) as datum,b.UserID, b.Username,  CONVERT(date, [Datum], 103) as sortdate
+   FROM Aufgabe a
+   JOIN Benutzer b ON b.UserID = a.UserID
+   WHERE Datum IS NOT NULL AND geloescht = 0 AND b.UserID = @UserID order by sortdate desc
+
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetKritisch_All]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetKritisch_All]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetKritisch_All]
+	-- Add the parameters for the stored procedure here
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   SELECT DISTINCT
+   CONVERT(varchar(10), [Datum], 103) as datum,b.UserID, b.Username,  CONVERT(date, [Datum], 103) as sortdate
+   FROM Aufgabe a
+   JOIN Benutzer b ON b.UserID = a.UserID
+   WHERE Datum IS NOT NULL AND geloescht = 0 order by sortdate desc
+
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetEvent_byAufgabeIDEnddatumNULL]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetEvent_byAufgabeIDEnddatumNULL]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_GetEvent_byAufgabeIDEnddatumNULL]
+	-- Add the parameters for the stored procedure here
+	@AufgabeID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT e.AufgabeID FROM Event e WHERE AufgabeID = @AufgabeID AND Enddatum IS NULL
+
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetEventEnddatum_ByUserID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetEventEnddatum_ByUserID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_SetEventEnddatum_ByUserID]
+	-- Add the parameters for the stored procedure here
+@UserID int,
+@Enddatum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+
+    UPDATE Event SET Enddatum = @Enddatum WHERE Enddatum IS NULL AND aufgabeID IN (SELECT AufgabeID FROM Aufgabe WHERE UserID = @UserID AND geloescht = 0)
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetEventEnddatum_ByAufgabeID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetEventEnddatum_ByAufgabeID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_SetEventEnddatum_ByAufgabeID]
+	-- Add the parameters for the stored procedure here
+	@AufgabeID int,
+	@Enddatum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+
+    UPDATE Event SET Enddatum = @Enddatum WHERE AufgabeID = @AufgabeID AND Enddatum IS NULL
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_SetEvent_byUserIDEnddatumNULL]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_SetEvent_byUserIDEnddatumNULL]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_SetEvent_byUserIDEnddatumNULL]
+	-- Add the parameters for the stored procedure here
+@UserID int,
+@Enddatum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+    UPDATE Event Set Enddatum = @Enddatum WHERE Enddatum IS NULL AND AufgabeID IN (SELECT AufgabeID FROM Aufgabe WHERE UserID = @UserID and geloescht = 0)
+    
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_InsertEvent]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_InsertEvent]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_InsertEvent]
+	-- Add the parameters for the stored procedure here
+@AufgabeID int,
+@Startdatum datetime,
+@Enddatum datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Event(AufgabeID, Startdatum, Enddatum)
+	VALUES (@AufgabeID, @Startdatum, @Enddatum)
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetStartEnddatum_byAufgabeID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetStartEnddatum_byAufgabeID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetStartEnddatum_byAufgabeID]
+	-- Add the parameters for the stored procedure here
+	@AufgabeID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT Startdatum,Enddatum FROM Event WHERE AufgabeID = @AufgabeID
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetRunningAufgabe_byUserID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetRunningAufgabe_byUserID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE [dbo].[TT_GetRunningAufgabe_byUserID]
+	-- Add the parameters for the stored procedure here
+@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+   
+	SELECT * FROM Event WHERE Enddatum IS NULL AND AufgabeID IN (SELECT AufgabeID FROM Aufgabe au WHERE au.UserID = @UserID AND geloescht = 0)
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabeID_ByUserIDZeitNULLEndatumNULL]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabeID_ByUserIDZeitNULLEndatumNULL]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetAufgabeID_ByUserIDZeitNULLEndatumNULL]
+	-- Add the parameters for the stored procedure here
+@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+    SELECT AufgabeID FROM Aufgabe WHERE geloescht = 0 AND Zeit IS NULL AND UserID = @UserID AND AufgabeID IN (SELECT AufgabeID FROM Event WHERE Enddatum IS NULL) ORDER BY Datum desc
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabeID_ByUserIDEnddatumNULL]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabeID_ByUserIDEnddatumNULL]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetAufgabeID_ByUserIDEnddatumNULL]
+	-- Add the parameters for the stored procedure here
+@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT AufgabeID FROM Aufgabe WHERE UserID = @UserID AND geloescht = 0 AND AufgabeID IN (SELECT AufgabeID FROM Event WHERE Enddatum IS NULL)
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_GetAufgabe_last]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_GetAufgabe_last]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_GetAufgabe_last]
+	-- Add the parameters for the stored procedure here
+
+@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+    SELECT TOP 1 a.AufgabeID FROM Aufgabe a JOIN Event e ON a.AufgabeID = e.AufgabeID WHERE a.UserID = @UserID AND geloescht = 0 AND abgeschlossen = 0 ORDER BY e.Enddatum desc
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[TT_DeleteEvents_byUserID]    Script Date: 11/12/2014 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TT_DeleteEvents_byUserID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Alexander Sommer
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[TT_DeleteEvents_byUserID]
+	-- Add the parameters for the stored procedure here
+	@UserID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM Event WHERE AufgabeID IN (SELECT AufgabeID FROM Aufgabe WHERE UserID = @UserID)
+END
+' 
+END
+GO
+/****** Object:  Default [DF_Aufgabe_geloescht]    Script Date: 11/12/2014 12:12:35 ******/
+IF Not EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_Aufgabe_geloescht]') AND parent_object_id = OBJECT_ID(N'[dbo].[Aufgabe]'))
+Begin
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Aufgabe_geloescht]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Aufgabe] ADD  CONSTRAINT [DF_Aufgabe_geloescht]  DEFAULT ((0)) FOR [geloescht]
+END
+
+
+End
+GO
+/****** Object:  Default [DF_Aufgabe_abgeschlossen]    Script Date: 11/12/2014 12:12:35 ******/
+IF Not EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_Aufgabe_abgeschlossen]') AND parent_object_id = OBJECT_ID(N'[dbo].[Aufgabe]'))
+Begin
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Aufgabe_abgeschlossen]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Aufgabe] ADD  CONSTRAINT [DF_Aufgabe_abgeschlossen]  DEFAULT ((0)) FOR [abgeschlossen]
+END
+
+
+End
+GO
+/****** Object:  Default [DF_Benutzer_admin]    Script Date: 11/12/2014 12:12:35 ******/
+IF Not EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_Benutzer_admin]') AND parent_object_id = OBJECT_ID(N'[dbo].[Benutzer]'))
+Begin
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Benutzer_admin]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Benutzer] ADD  CONSTRAINT [DF_Benutzer_admin]  DEFAULT ((0)) FOR [admin]
+END
+
+
+End
+GO
+/****** Object:  ForeignKey [FK_Aufgabe_Benutzer]    Script Date: 11/12/2014 12:12:35 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Aufgabe_Benutzer]') AND parent_object_id = OBJECT_ID(N'[dbo].[Aufgabe]'))
+ALTER TABLE [dbo].[Aufgabe]  WITH CHECK ADD  CONSTRAINT [FK_Aufgabe_Benutzer] FOREIGN KEY([UserID])
+REFERENCES [dbo].[Benutzer] ([UserID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Aufgabe_Benutzer]') AND parent_object_id = OBJECT_ID(N'[dbo].[Aufgabe]'))
+ALTER TABLE [dbo].[Aufgabe] CHECK CONSTRAINT [FK_Aufgabe_Benutzer]
+GO
+/****** Object:  ForeignKey [FK_Event_Aufgabe]    Script Date: 11/12/2014 12:12:35 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Event_Aufgabe]') AND parent_object_id = OBJECT_ID(N'[dbo].[Event]'))
+ALTER TABLE [dbo].[Event]  WITH CHECK ADD  CONSTRAINT [FK_Event_Aufgabe] FOREIGN KEY([AufgabeID])
+REFERENCES [dbo].[Aufgabe] ([AufgabeID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Event_Aufgabe]') AND parent_object_id = OBJECT_ID(N'[dbo].[Event]'))
+ALTER TABLE [dbo].[Event] CHECK CONSTRAINT [FK_Event_Aufgabe]
+GO
