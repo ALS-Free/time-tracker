@@ -160,7 +160,7 @@ namespace BM_TimeTracker.Ressources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die TimeTracker: Admin ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die time:tracker: Admin ähnelt.
         /// </summary>
         internal static string admin_title {
             get {
@@ -201,6 +201,15 @@ namespace BM_TimeTracker.Ressources {
         internal static string adminSettings_save {
             get {
                 return ResourceManager.GetString("adminSettings_save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die time:tracker: Settings ähnelt.
+        /// </summary>
+        internal static string adminSettings_title {
+            get {
+                return ResourceManager.GetString("adminSettings_title", resourceCulture);
             }
         }
         
@@ -286,7 +295,7 @@ namespace BM_TimeTracker.Ressources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die TimeTracker: Booking ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die time:tracker: Booking ähnelt.
         /// </summary>
         internal static string bookit_title {
             get {
@@ -351,7 +360,7 @@ namespace BM_TimeTracker.Ressources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die TimeTracker: Change password ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die time:tracker: Change password ähnelt.
         /// </summary>
         internal static string changeuser_title {
             get {
@@ -419,6 +428,15 @@ namespace BM_TimeTracker.Ressources {
         internal static string login_password {
             get {
                 return ResourceManager.GetString("login_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die time:tracker: Login ähnelt.
+        /// </summary>
+        internal static string login_title {
+            get {
+                return ResourceManager.GetString("login_title", resourceCulture);
             }
         }
         
@@ -533,9 +551,9 @@ namespace BM_TimeTracker.Ressources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Logout ähnelt.
         /// </summary>
-        internal static string manage_logut {
+        internal static string manage_logout {
             get {
-                return ResourceManager.GetString("manage_logut", resourceCulture);
+                return ResourceManager.GetString("manage_logout", resourceCulture);
             }
         }
         
@@ -603,7 +621,7 @@ namespace BM_TimeTracker.Ressources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die TimeTracker: Taskmanagement ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die time:tracker: Taskmanagement ähnelt.
         /// </summary>
         internal static string manage_title {
             get {
@@ -684,7 +702,7 @@ namespace BM_TimeTracker.Ressources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die TimeTracker: New User ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die time:tracker: New User ähnelt.
         /// </summary>
         internal static string newuser_title {
             get {
@@ -866,7 +884,7 @@ namespace BM_TimeTracker.Ressources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die TimeTracker: Usermanagement ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die time:tracker: Usermanagement ähnelt.
         /// </summary>
         internal static string usermanage_title {
             get {

@@ -360,7 +360,7 @@ namespace BM_TimeTracker
         private void SetLocalization()
         {//localisation wird mit der Ressources.string.datei geladen
 
-            btnLogout.Text = Ressources.strings.manage_logut;
+            btnLogout.Text = Ressources.strings.manage_logout;
             btnStart.Text = Ressources.strings.manage_start;
             btnPause.Text = Ressources.strings.manage_pause;
             btnStop.Text = Ressources.strings.manage_bookit;

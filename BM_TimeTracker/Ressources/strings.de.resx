@@ -126,6 +126,9 @@
   <data name="adminSettings_save" xml:space="preserve">
     <value>Speichern</value>
   </data>
+  <data name="adminSettings_title" xml:space="preserve">
+    <value>time:tracker: Einstellungen</value>
+  </data>
   <data name="admin_backtomanage" xml:space="preserve">
     <value>Zurück zur Verwaltung</value>
   </data>
@@ -160,7 +163,7 @@
     <value>Zeit in Minuten</value>
   </data>
   <data name="admin_title" xml:space="preserve">
-    <value>TimeTracker: Adminbereich</value>
+    <value>time:tracker: Adminbereich</value>
   </data>
   <data name="admin_usermanage" xml:space="preserve">
     <value>Benutzerverwaltung</value>
@@ -193,7 +196,7 @@
     <value>Zeit Minuten</value>
   </data>
   <data name="bookit_title" xml:space="preserve">
-    <value>TimeTracker: Buchung</value>
+    <value>time:tracker: Buchung</value>
   </data>
   <data name="changeuser_invalidvalue" xml:space="preserve">
     <value>Ungültige Werte für
@@ -216,7 +219,7 @@ Passwort oder Benutzer</value>
     <value>Speichern</value>
   </data>
   <data name="changeuser_title" xml:space="preserve">
-    <value>TimeTracker: Passwort ändern</value>
+    <value>time:tracker: Passwort ändern</value>
   </data>
   <data name="changeuser_wrongpassword" xml:space="preserve">
     <value>Falsches Passwort
@@ -239,6 +242,9 @@ eingegeben</value>
   </data>
   <data name="login_password" xml:space="preserve">
     <value>Passwort</value>
+  </data>
+  <data name="login_title" xml:space="preserve">
+    <value>time:tracker: Login</value>
   </data>
   <data name="login_username" xml:space="preserve">
     <value>Benutzername</value>
@@ -276,7 +282,7 @@ eingegeben</value>
   <data name="manage_intern" xml:space="preserve">
     <value>Intern</value>
   </data>
-  <data name="manage_logut" xml:space="preserve">
+  <data name="manage_logout" xml:space="preserve">
     <value>Abmelden</value>
   </data>
   <data name="manage_onlyactive" xml:space="preserve">
@@ -301,7 +307,7 @@ eingegeben</value>
     <value>Zeit in Minuten</value>
   </data>
   <data name="manage_title" xml:space="preserve">
-    <value>TimeTracker: Aufgabemanager</value>
+    <value>time:tracker: Aufgabenmanager</value>
   </data>
   <data name="manage_username" xml:space="preserve">
     <value>Eingeloggt als:</value>
@@ -328,7 +334,7 @@ eingegeben</value>
     <value>Speichern</value>
   </data>
   <data name="newuser_title" xml:space="preserve">
-    <value>TimeTracker: Neuer Benutzer</value>
+    <value>time:tracker: Neuer Benutzer</value>
   </data>
   <data name="newuser_useralreadytaken" xml:space="preserve">
     <value>Benutzername schon vergeben</value>
@@ -391,7 +397,7 @@ nicht überschrieben werden</value>
     <value>Speichern erfolgreich</value>
   </data>
   <data name="usermanage_title" xml:space="preserve">
-    <value>TimeTracker: Benutzerverwaltung</value>
+    <value>time:tracker: Benutzerverwaltung</value>
   </data>
   <data name="usermanage_useralreadyexists" xml:space="preserve">
     <value>Benutzer existiert bereits</value>

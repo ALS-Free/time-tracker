@@ -70,6 +70,8 @@ namespace BM_TimeTracker
             lbMindest.Text = Ressources.strings.adminSettings_minTime;
             btnSave.Text = Ressources.strings.adminSettings_save;
             lbInvalidTime.Text = Ressources.strings.adminSettings_invalidTime;
+            this.Text = Ressources.strings.adminSettings_title;
+
         }
 
         #region events

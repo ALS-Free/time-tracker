@@ -79,6 +79,7 @@ namespace BM_TimeTracker
             lbPassword.Text = Ressources.strings.login_password;
             lbUsername.Text = Ressources.strings.login_username;
             lnkNeuUser.Text = Ressources.strings.login_newuser;
+            this.Text = Ressources.strings.login_title;
         }
 
         #region events

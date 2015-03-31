@@ -126,6 +126,9 @@
   <data name="adminSettings_save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="adminSettings_title" xml:space="preserve">
+    <value>time:tracker: Settings</value>
+  </data>
   <data name="admin_backtomanage" xml:space="preserve">
     <value>Back to Taskmanager</value>
   </data>
@@ -160,7 +163,7 @@
     <value>Time in minutes</value>
   </data>
   <data name="admin_title" xml:space="preserve">
-    <value>TimeTracker: Admin</value>
+    <value>time:tracker: Admin</value>
   </data>
   <data name="admin_usermanage" xml:space="preserve">
     <value>Usermanagement</value>
@@ -193,7 +196,7 @@
     <value>Time minutes</value>
   </data>
   <data name="bookit_title" xml:space="preserve">
-    <value>TimeTracker: Booking</value>
+    <value>time:tracker: Booking</value>
   </data>
   <data name="changeuser_invalidvalue" xml:space="preserve">
     <value>Invalid Values for
@@ -216,7 +219,7 @@ match</value>
     <value>Save</value>
   </data>
   <data name="changeuser_title" xml:space="preserve">
-    <value>TimeTracker: Change password</value>
+    <value>time:tracker: Change password</value>
   </data>
   <data name="changeuser_wrongpassword" xml:space="preserve">
     <value>Wrong password</value>
@@ -238,6 +241,9 @@ match</value>
   </data>
   <data name="login_password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="login_title" xml:space="preserve">
+    <value>time:tracker: Login</value>
   </data>
   <data name="login_username" xml:space="preserve">
     <value>Username</value>
@@ -275,7 +281,7 @@ match</value>
   <data name="manage_intern" xml:space="preserve">
     <value>Internal</value>
   </data>
-  <data name="manage_logut" xml:space="preserve">
+  <data name="manage_logout" xml:space="preserve">
     <value>Logout</value>
   </data>
   <data name="manage_onlyactive" xml:space="preserve">
@@ -300,7 +306,7 @@ match</value>
     <value>Time in minutes</value>
   </data>
   <data name="manage_title" xml:space="preserve">
-    <value>TimeTracker: Taskmanagement</value>
+    <value>time:tracker: Taskmanagement</value>
   </data>
   <data name="manage_username" xml:space="preserve">
     <value>Logged in as:</value>
@@ -327,7 +333,7 @@ match</value>
     <value>Save</value>
   </data>
   <data name="newuser_title" xml:space="preserve">
-    <value>TimeTracker: New User</value>
+    <value>time:tracker: New User</value>
   </data>
   <data name="newuser_useralreadytaken" xml:space="preserve">
     <value>Username already taken</value>
@@ -389,7 +395,7 @@ on admin
     <value>Saving successful</value>
   </data>
   <data name="usermanage_title" xml:space="preserve">
-    <value>TimeTracker: Usermanagement</value>
+    <value>time:tracker: Usermanagement</value>
   </data>
   <data name="usermanage_useralreadyexists" xml:space="preserve">
     <value>User already exists</value>
