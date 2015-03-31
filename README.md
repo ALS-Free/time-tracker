@@ -7,25 +7,26 @@ It is a WindowsForms Application and requires a SQL-Server.
 
 ##1. Create Database/Database User
 
-time:tracker needs a database to save its data to. So first we will have to create this database. After that you will have to
-create a database user to connect time:tracker to this database. This data will be also required in the installation by the wizard
+time:tracker needs a database to save it's data to. So first we will have to create this database. After that you will have to create a database user to connect time:tracker to this database. This data will be also required in the installation by the wizard
 
 ##2. Installation
 
 ###2a Automatic
 
-Download the .msi package from http://gettimetracker.de and execute it. When you will be aksed for your database information from step one enter it. Finished.
+Download the .msi package from http://gettimetracker.de and execute it. When you will be asked for your database information from step one enter it. Finished.
 
 ###2b Manual
+Clone this repository <a>https://github.com/ALS-Free/time-tracker.git</a>. Load the project in your visual studio or IDE of your choice.
 
-Clone this repository <a>https://github.com/ALS-Free/time-tracker.git</a>. Load the project in your visual studio or IDE of your choice. Navigate to the app.config file. Enter the database information under the section "connectionStrings". For example.
+Copy the contents of the install.txt file located under /sqlscripts. Execute them in your created database to create the tables and the stored procedures you need for time:tracker
+
+Navigate to the app.config file. Enter the database information under the section "connectionStrings". For example.
 
 ```xml
  <connectionStrings>
     <add name="SQLConnection" connectionString="Data Source=.\SQLEXPRESS;Initial Catalog=*YourDatabase*;User ID=*YourDatabaseUserId*;Password=*YourDatabaseUserPassword*" />
   </connectionStrings>
 ```
-
 Compile it. Deploy it.
 
 
@@ -33,14 +34,14 @@ Compile it. Deploy it.
   
 ##1. First things First... Logging In  
   
-When you first start the time:tracker there will be a Username and a Password field.  
-If you already have a User, enter your Username and your password and hit enter.  
+When you first start the time:tracker there will be a username and a password field.  
+If you already have a user, enter your username and your password and hit enter.  
   
 If you dont have a user, in the next step we discuss creating one.  
 
 ###1b. Creating a User  
-So you don't have a User for yourself. That's no problem we create one.  
-First click on the "New User"-Link in the Login Form. It will take you to the   
+So you don't have a user for yourself. That's no problem we create one.  
+First click on the "New User"-Link in the login form. It will take you to the   
 "New User"-Form.   
 Enter a username and a password and click save.  
   
@@ -49,12 +50,12 @@ So now you are logged in and ready to use the time:tracker. That's great.
 On the left side you will seee some Buttons named "Logout", "Start", "Pause" and   
 "Book it".  
 
-Under these Buttons is the overview over your tasks for the day. Curently it's empty  
+Under these buttons is the overview over your tasks for the day. Curently it's empty  
 but we will change that in a minute.  
   
-Click the "Start"-Button to create a new Task. A Task named "In Progress" will appear  
+Click the "Start"-Button to create a new task. A task named "In Progress" will appear  
 in your overview. Currently its internal and there is no time logged for it.  
-Over time the time in the field "Time in minutes" will increase.  
+Over time the number in the field "Time in minutes" will increase.  
 If you want to pause this task simply click the task and the click the "pause"-button,  
 or click the "pause"-button in the same row as the task. 
   
@@ -63,7 +64,7 @@ The "pause" and "start" Button you can use to start and pause the task in the sa
 The delete Button deletes the task from you overview.  
   
 Now we want to change the name of the task. Simply press the "Edit"-Button in the same row  
-as the taks you want to change. The Form "Booking" will appear where you can change the name,  
+as the task you want to change. The Form "Booking" will appear where you can change the name,  
 if the task is internal and the date of the taks.  
   
 So now we are finished with our first task. So we want to finish it.  
