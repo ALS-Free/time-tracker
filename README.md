@@ -65,7 +65,7 @@ The delete Button deletes the task from you overview.
   
 Now we want to change the name of the task. Simply press the "Edit"-Button in the same row  
 as the task you want to change. The Form "Booking" will appear where you can change the name,  
-if the task is internal and the date of the taks.  
+if the task is internal and the date of the task.  
   
 So now we are finished with our first task. So we want to finish it.  
 We click the task we want to finish and click "Book it". The form "Booking" will appear again,  
